@@ -26,10 +26,33 @@ public class OutputCommandHandler extends CommandHandler {
         if (!matcher.find()) throw new InvalidSyntaxException("Invalid Command!");
 
         String laneName = sanitizeString(matcher.group("laneName"));
-        printLane(laneMap.get(laneName));
+        printLaneWithoutTransfers(laneMap.get(laneName));
     }
 
-    private static void printLane(Lane lane) {
+    private static void printLaneWithoutTransfers(Lane lane) {
+        if (lane == null) return;
+
+        String prevStationString = "depot";
+        String nextStationString;
+
+        Station currStation = lane.getStart();
+
+        while (currStation != null) {
+            String currStationString = currStation.getName();
+            Station nextStation = currStation.getNextStation();
+
+            if (nextStation == null) nextStationString = "depot";
+            else nextStationString = nextStation.getName();
+
+            System.out.println(String.format("%s - %s - %s", prevStationString, currStationString, nextStationString));
+
+            prevStationString = currStationString;
+            currStation = nextStation;
+        }
+
+    }
+
+    private static void printLaneWithTransfers(Lane lane) {
         if (lane == null) return;
         System.out.println("depot");
         Station curr = lane.getStart();

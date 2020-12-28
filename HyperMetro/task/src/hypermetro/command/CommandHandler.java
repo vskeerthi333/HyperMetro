@@ -27,6 +27,8 @@ public abstract class CommandHandler {
                 return RemoveCommandHandler.getInstance();
             case "connect":
                 return ConnectCommandHandler.getInstance();
+            case "route":
+                return RouteCommandHandler.getInstance();
             case "exit":
                 return null;
             default:

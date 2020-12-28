@@ -1,5 +1,6 @@
 package hypermetro.jsonparser;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -46,15 +47,17 @@ public class JSONLaneParser {
         }
         return lane;
     }
-
     private static void addTransfers(String fromLaneName, JsonObject stationObject, Map<String, Lane> laneMap) {
         String fromStationName = stationObject.get("name").getAsString();
         JsonElement transferElement = stationObject.get("transfer");
         if (transferElement == null || transferElement.isJsonNull()) return;
 
-        JsonObject transferObject = transferElement.getAsJsonObject();
-        Lane toLane = laneMap.get(transferObject.get("line").getAsString());
-        Station toStation = toLane.findStation(transferObject.get("station").getAsString());
-        laneMap.get(fromLaneName).findStation(fromStationName).addTransfer(toLane.getName(), toStation);
+        JsonArray transferArray = transferElement.getAsJsonArray();
+        for (var transfer : transferArray) {
+            JsonObject transferObject = transfer.getAsJsonObject();
+            Lane toLane = laneMap.get(transferObject.get("line").getAsString());
+            Station toStation = toLane.findStation(transferObject.get("station").getAsString());
+            laneMap.get(fromLaneName).findStation(fromStationName).addTransfer(toLane.getName(), toStation);
+        }
     }
 }
