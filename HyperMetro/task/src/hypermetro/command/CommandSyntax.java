@@ -14,4 +14,6 @@ public class CommandSyntax {
             "^\\/(?<command>[\\S]*) (?<laneName>([^\\\"\\s]+)|(\\\"[^\\\"]+\\\")) (?<stationName>([^\\\"\\s]+)|(\\\"[^\\\"]+\\\"))$";
     public static final String connectCommand =
             "^\\/(?<command>[\\S]*) (?<lane1>([^\\\"\\s]+)|(\\\"[^\\\"]+\\\")) (?<station1>([^\\\"\\s]+)|(\\\"[^\\\"]+\\\")) (?<lane2>([^\\\"\\s]+)|(\\\"[^\\\"]+\\\")) (?<station2>([^\\\"\\s]+)|(\\\"[^\\\"]+\\\"))$";
+    public static final String routeCommand =
+            "^\\/(?<command>[\\S]*) (?<fromLane>([^\\\"\\s]+)|(\\\"[^\\\"]+\\\")) (?<fromStation>([^\\\"\\s]+)|(\\\"[^\\\"]+\\\")) (?<toLane>([^\\\"\\s]+)|(\\\"[^\\\"]+\\\")) (?<toStation>([^\\\"\\s]+)|(\\\"[^\\\"]+\\\"))$";
 }
